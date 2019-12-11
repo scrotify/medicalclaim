@@ -44,4 +44,5 @@ public class MedicalClaimController {
         logger.info("End of get claims method");
         return new ResponseEntity<>(claimDto, HttpStatus.OK);
     }
+    
 }

@@ -75,24 +75,52 @@ public class ClaimServiceImpl implements ClaimService {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
-	public ApproverClaimResponseDto verifyClaimRequest(Long approverId, Long claimRequestID) {
-		ApproverClaimResponseDto approverClaimResponseDto = null;
+	public ApproverClaimResponseDto verifyClaimRequest(Long approverId, String role, Long claimRequestID) {
+		ApproverClaimResponseDto approverClaimResponseDto = new ApproverClaimResponseDto();;
 		Optional<Approver> appro = approverRepository.findByApproverId(approverId);
 		if (appro.isPresent()) {
 			Optional<ClaimRequest> claimRequest = claimRequestRepository.findByClaimRequestId(claimRequestID);
 			if (claimRequest.isPresent()) {
-				Optional<Claim> claim = claimRepository.findByClaimId(claimRequest.get().getClaimId());
-				if (claim.isPresent()) {
-
-				}else {
-					
+				if (appro.get().getApproverRole().equalsIgnoreCase(role)) {
+					Optional<Claim> claim = claimRepository.findByClaimId(claimRequest.get().getClaimId());
+					if (claim.isPresent()) {
+						Optional<PolicyDetail> plociyId = policyDetailRepository
+								.findByPolicyId(claim.get().getPolicyId());
+						if (plociyId.isPresent()) {
+							if (claim.get().getTotalClaimAmount() > plociyId.get().getPolicyLimit()) {
+								ClaimRequest statusUpdate = new ClaimRequest();
+								statusUpdate.setClaimStatus("approved");
+							} else {
+								ClaimRequest level2 = new ClaimRequest();
+								level2.setClaimStatus("rejected");
+								level2.setReason("above policy limit");
+								level2.setApproverRole("level2");
+								claimRequestRepository.save(level2);
+							}
+						} else {
+							
+							approverClaimResponseDto.setMessage("policy id not present");
+							approverClaimResponseDto.setStatusCode(404);
+						}
+					}else {
+						approverClaimResponseDto.setMessage("claim id not present");
+						approverClaimResponseDto.setStatusCode(404);
+					}
+				} else {
+					approverClaimResponseDto.setMessage("you don't have present claim request ");
+					approverClaimResponseDto.setStatusCode(404);
 				}
-			}else {
-				
+			} else {
+				approverClaimResponseDto.setMessage("claim request id is not present");
+				approverClaimResponseDto.setStatusCode(404);
 			}
-		}else {
-			
+		} else {
+			approverClaimResponseDto.setMessage("Approver not present");
+			approverClaimResponseDto.setStatusCode(404);
 		}
 		return approverClaimResponseDto;
 	}

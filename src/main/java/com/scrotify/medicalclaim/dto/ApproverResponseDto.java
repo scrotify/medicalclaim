@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ApproverResponseDto {
-	
+
 	private Long approverId;
 	private String approverName;
 	private String message;

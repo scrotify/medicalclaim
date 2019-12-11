@@ -27,6 +27,9 @@ public class ApproverController {
 	
 	@Autowired
 	ApproverService approverService;
+
+	@Autowired
+	ClaimService claimService;
 	
 	@PostMapping("")
 	public ResponseEntity<ApproverResponseDto> loginApprover(@RequestBody ApproverDto approverDto) throws ApproverNotFound {
@@ -38,5 +41,14 @@ public class ApproverController {
 		return new ResponseEntity<>(approverService.getByApproverId(approverId), HttpStatus.OK);
 	}
 	
-
+	public ResponseEntity<List<ClaimRequest>> getByApproverId(@PathVariable Long approverId) {
+		return new ResponseEntity<>(approverService.getByApproverId(approverId), HttpStatus.OK);
+	}
+	
+	
+	@PutMapping("/{approvers/{approverId}/claims/{claimRequestId}")
+	public ApproverClaimResponseDto verifyClaimRequest(@RequestBody @RequestParam Long approverId,@RequestParam String role, @RequestParam Long claimRequestID) {
+		ApproverClaimResponseDto approverClaimResponseDto=claimService.verifyClaimRequest(approverId, role, claimRequestID);
+		return approverClaimResponseDto;
+	}
 }

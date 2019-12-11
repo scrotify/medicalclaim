@@ -16,10 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="claimrequest")
+@Table(name = "claimrequest")
 public class ClaimRequest {
+	
 	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long claimRequestId;
 	private Long claimId;
 	private String claimStatus;

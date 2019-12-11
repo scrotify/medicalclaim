@@ -1,10 +1,14 @@
 package com.scrotify.medicalclaim.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +34,7 @@ public class ApproverServiceImpl implements ApproverService {
 	@Override
 	public ApproverResponseDto loginApprover(ApproverDto approverDto) throws ApproverNotFound {
 		ApproverResponseDto approverResponseDto = new ApproverResponseDto();
+		ApproverResponseDto approverResponseDto=new ApproverResponseDto();
 		Optional<Approver> approver = approverRepository.findByApproverEmail(approverDto.getApproverEmail());
 		if (approver.isPresent()) {
 			if (approver.get().getApproverEmail().equals(approverDto.getApproverEmail())
@@ -71,4 +76,8 @@ public class ApproverServiceImpl implements ApproverService {
 		return listofRequest;
 	}
 
+	public List<ClaimRequest> getByApproverId(Long approverId) {
+		List<ClaimRequest> claimRequest = claimRequestRepository.findAllByApproverId(approverId);
+		return claimRequest;
+	}
 }
