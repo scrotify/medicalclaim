@@ -23,6 +23,6 @@ public class Approver {
 	private Long approverId;
 	private String approverName;
 	private String approverEmail;
-	private String approver_password;
+	private String approverPassword;
 	private String approverRole;
 }

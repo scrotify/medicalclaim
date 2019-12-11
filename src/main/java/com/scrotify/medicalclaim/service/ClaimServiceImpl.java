@@ -49,6 +49,7 @@ public class ClaimServiceImpl implements ClaimService {
 			double totalClaim = claim.getMedicineFee() + claim.getDoctorFee() + claim.getNursingFee()
 					+ claim.getOthersFee();
 			totalClaim += claim.getRoomFee() + claim.getSurgeryFee() + claim.getXrayFee();
+			claim.setStatus(MedicalClaimConstants.CLAIM_PENDING_REGISTER_MSG);
 			claim.setTotalClaimAmount(totalClaim);
 			claim = claimRepository.save(claim);
 			response.setStatusCode(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_STATUS_CODE);
