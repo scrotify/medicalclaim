@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.scrotify.medicalclaim.dto.ApiResponse;
 import com.scrotify.medicalclaim.dto.ApproverClaimResponseDto;
+import com.scrotify.medicalclaim.entity.Approver;
 import com.scrotify.medicalclaim.entity.Claim;
+import com.scrotify.medicalclaim.entity.ClaimRequest;
 import com.scrotify.medicalclaim.entity.PolicyDetail;
 import com.scrotify.medicalclaim.repository.ApproverRepository;
 import com.scrotify.medicalclaim.repository.ClaimRepository;
@@ -49,7 +51,13 @@ public class ClaimServiceImpl implements ClaimService {
 	@Override
 	public ApproverClaimResponseDto verifyClaimRequest(Long approverId, Long claimRequestID) {
 		ApproverClaimResponseDto approverClaimResponseDto=null;
-	
+	Optional<Approver> appro=approverRepository.findByApproverId(approverId);
+	if(appro.isPresent()) {
+		Optional<ClaimRequest> claim=claimRequestRepository.findByClaimRequestId(claimRequestID);
+		if(claim.isPresent()) {
+			
+		}
+	}
 		return approverClaimResponseDto;
 	}
 

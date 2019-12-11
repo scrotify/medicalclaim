@@ -10,6 +10,6 @@ import com.scrotify.medicalclaim.entity.ClaimRequest;
 @Repository
 public interface ClaimRequestRepository extends JpaRepository<ClaimRequest, Long>{
 	
-	Optional<ClaimRequest> findByClaimRequestId();
+	Optional<ClaimRequest> findByClaimRequestId(Long claimRequestID);
 
 }
