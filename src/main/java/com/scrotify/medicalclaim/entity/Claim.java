@@ -78,6 +78,21 @@ public class Claim implements Serializable {
     @JoinColumn(name = "policy_id")
     private PolicyDetail policyDetail;
 
+    @Transient
+    private Long policyId;
+
+    public boolean isMoreDetailsStatus() {
+        return moreDetailsStatus;
+    }
+
+    public Long getPolicyId() {
+        return policyId;
+    }
+
+    public void setPolicyId(Long policyId) {
+        this.policyId = policyId;
+    }
+
     public Claim() {
     }
 

@@ -11,28 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class ClaimService {
-
-
-    @Autowired
-    private PolicyDetailRepository policyDetailRepository;
-
-    @Autowired
-    private ClaimRepository claimRepository;
-
-    public ApiResponse postClaims(Claim claim) {
-        ApiResponse response = new ApiResponse();
-        Optional<PolicyDetail> policyDetailOptional = policyDetailRepository.findById(claim.getPolicyDetail().getPolicyId());
-        if (policyDetailOptional.isPresent()) {
-            claim = claimRepository.save(claim);
-            response.setStatusCode(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_STATUS_CODE);
-            response.setMessage(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_MSG + claim.getClaimId());
-        } else {
-            response.setStatusCode(MedicalClaimConstants.CLAIM_REGISTER_FAILED_STATUS_CODE);
-            response.setMessage(MedicalClaimConstants.CLAIM_REGISTER_FAILED_MSG);
-        }
-        return response;
-    }
-
+public interface ClaimService {
+    public ApiResponse postClaims(Claim claim);
 }
