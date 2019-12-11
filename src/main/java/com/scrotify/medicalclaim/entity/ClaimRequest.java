@@ -1,6 +1,5 @@
 package com.scrotify.medicalclaim.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +24,6 @@ public class ClaimRequest {
 	private Long claimRequestId;
 	private Long claimId;
 	private String claimStatus;
-	@Column(name = "assigned")
-	private Long approverId;
+	private String approverRole;
 	private String reason;
 }
