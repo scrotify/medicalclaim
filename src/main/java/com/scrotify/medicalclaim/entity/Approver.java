@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +22,6 @@ public class Approver {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long approverId;
 	private String approverName;
-	@Pattern(regexp="^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$(?:\\\\.[a-zA-Z0-9-]+)*$")
 	private String approverEmail;
 	private String approver_password;
 	private String approverRole;

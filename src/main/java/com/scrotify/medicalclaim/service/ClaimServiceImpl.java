@@ -1,15 +1,19 @@
 package com.scrotify.medicalclaim.service;
 
-import com.scrotify.medicalclaim.dto.ApiResponse;
-import com.scrotify.medicalclaim.entity.Claim;
-import com.scrotify.medicalclaim.entity.PolicyDetail;
-import com.scrotify.medicalclaim.repository.ClaimRepository;
-import com.scrotify.medicalclaim.repository.PolicyDetailRepository;
-import com.scrotify.medicalclaim.util.MedicalClaimConstants;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.scrotify.medicalclaim.dto.ApiResponse;
+import com.scrotify.medicalclaim.dto.ApproverClaimResponseDto;
+import com.scrotify.medicalclaim.entity.Claim;
+import com.scrotify.medicalclaim.entity.PolicyDetail;
+import com.scrotify.medicalclaim.repository.ApproverRepository;
+import com.scrotify.medicalclaim.repository.ClaimRepository;
+import com.scrotify.medicalclaim.repository.ClaimRequestRepository;
+import com.scrotify.medicalclaim.repository.PolicyDetailRepository;
+import com.scrotify.medicalclaim.util.MedicalClaimConstants;
 
 @Service
 public class ClaimServiceImpl implements ClaimService {
@@ -20,6 +24,13 @@ public class ClaimServiceImpl implements ClaimService {
 
     @Autowired
     private ClaimRepository claimRepository;
+    
+    @Autowired
+    private ClaimRequestRepository claimRequestRepository;
+    
+    @Autowired
+    
+    private ApproverRepository approverRepository;
 
     public ApiResponse postClaims(Claim claim) {
         ApiResponse response = new ApiResponse();
@@ -34,5 +45,12 @@ public class ClaimServiceImpl implements ClaimService {
         }
         return response;
     }
+
+	@Override
+	public ApproverClaimResponseDto verifyClaimRequest(Long approverId, Long claimRequestID) {
+		ApproverClaimResponseDto approverClaimResponseDto=null;
+	
+		return approverClaimResponseDto;
+	}
 
 }
