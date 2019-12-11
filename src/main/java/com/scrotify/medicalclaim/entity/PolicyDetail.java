@@ -1,6 +1,9 @@
 package com.scrotify.medicalclaim.entity;
 
 import javax.persistence.*;
+
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,9 +11,10 @@ import java.util.List;
 /**
  * The persistent class for the policy_details database table.
  */
+
 @Entity
 @Table(name = "policy_details")
-@NamedQuery(name = "PolicyDetail.findAll", query = "SELECT p FROM PolicyDetail p")
+//@NamedQuery(name = "PolicyDetail.findAll", query = "SELECT p FROM PolicyDetail p")
 public class PolicyDetail implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +29,13 @@ public class PolicyDetail implements Serializable {
 
     @Column(name = "policy_name")
     private String policyName;
+    
+    @OneToMany(mappedBy="policyDetail")
+    private List<Hospital> hospitals;
+    
+    @OneToMany(mappedBy="policyDetail")
+    private List<Ailment> ailments;
+    
 
     @OneToMany(mappedBy = "policyDetail")
     private List<Claim> claims;
@@ -63,8 +74,29 @@ public class PolicyDetail implements Serializable {
     public void setClaims(List<Claim> claims) {
         this.claims = claims;
     }
+    
 
-    public Claim addClaim(Claim claim) {
+    public List<Hospital> getHospitals() {
+		return hospitals;
+	}
+
+	public void setHospitals(List<Hospital> hospitals) {
+		this.hospitals = hospitals;
+	}
+
+	public List<Ailment> getAilments() {
+		return ailments;
+	}
+
+	public void setAilments(List<Ailment> ailments) {
+		this.ailments = ailments;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Claim addClaim(Claim claim) {
         getClaims().add(claim);
         claim.setPolicyDetail(this);
         return claim;
