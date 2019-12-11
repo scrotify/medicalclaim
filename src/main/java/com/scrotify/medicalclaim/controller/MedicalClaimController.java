@@ -10,6 +10,8 @@ import com.scrotify.medicalclaim.service.ClaimServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,21 +42,27 @@ public class MedicalClaimController {
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
+  
+    /**
+     * Gets all claims.
+     *
+     * @return the all claims
+     */
     @GetMapping
     public ResponseEntity<List<ClaimDto>> getAllClaims() {
-    	
-    	List<ClaimDto> claimDtos = new ArrayList<ClaimDto>(); 
-    	logger.info("Enter into get claims method");
-		/*
-		 * List<Claim> claimsEntites = claimService.getAllClaims(); if
-		 * (Optional.ofNullable(claimsEntites).isPresent()) {
-		 * claimsEntites.stream().map(entity -> { ClaimDto claimDto = new ClaimDto();
-		 * BeanUtils.copyProperties(entity, claimDto);
-		 * claimDto.setPolicyId(entity.getPolicyDetail().getPolicyId()); });
-		 */
-        	//
-        return new ResponseEntity(claimDtos, HttpStatus.OK);
+    List<ClaimDto> claimDtos = new ArrayList<ClaimDto>();
+    logger.info("Enter into get all claims method");
+    List<Claim> claimsEntites = claimService.getAllClaims();
+    if(Optional.ofNullable(claimsEntites).isPresent()) {
+    claimDtos = claimsEntites.stream().map(entity -> {
+    ClaimDto claimDto = new  ClaimDto();
+    BeanUtils.copyProperties(entity, claimDto);
+    claimDto.setPolicyId(entity.getPolicyDetail().getPolicyId());
+    return claimDto;
+      }).collect(Collectors.toList());
     }
+      return new ResponseEntity(claimDtos, HttpStatus.OK);
+    } 
     
     
     @GetMapping("/{claimId}")

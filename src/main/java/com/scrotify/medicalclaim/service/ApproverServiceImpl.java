@@ -13,10 +13,13 @@ import com.scrotify.medicalclaim.dto.ApproverDto;
 import com.scrotify.medicalclaim.dto.ApproverResponseDto;
 import com.scrotify.medicalclaim.dto.ClaimRequestResponseDto;
 import com.scrotify.medicalclaim.entity.Approver;
+import com.scrotify.medicalclaim.entity.Claim;
 import com.scrotify.medicalclaim.entity.ClaimRequest;
 import com.scrotify.medicalclaim.exception.ApproverNotFound;
 import com.scrotify.medicalclaim.repository.ApproverRepository;
+import com.scrotify.medicalclaim.repository.ClaimRepository;
 import com.scrotify.medicalclaim.repository.ClaimRequestRepository;
+import com.scrotify.medicalclaim.repository.PolicyDetailRepository;
 import com.scrotify.medicalclaim.util.MedicalClaimConstants;
 
 @Service
@@ -27,6 +30,12 @@ public class ApproverServiceImpl implements ApproverService {
 
 	@Autowired
 	ClaimRequestRepository claimRequestRepository;
+	
+	@Autowired
+	ClaimRepository claimRepository;
+	
+	@Autowired
+	PolicyDetailRepository policyDetailRepository;
 
 	@Override
 	public ApproverResponseDto loginApprover(ApproverDto approverDto) throws ApproverNotFound {
@@ -61,7 +70,15 @@ public class ApproverServiceImpl implements ApproverService {
 			List<ClaimRequest> claimRequest = claimRequestRepository
 					.findAllByApproverRole(approver.get().getApproverRole());
 			for (ClaimRequest claimList : claimRequest) {
+				Optional<Claim> claim=claimRepository.findByClaimId(claimList.getClaimId());
 				claimRequestResponseDto = new ClaimRequestResponseDto();
+				claimRequestResponseDto.setClaimRequestId(claimList.getClaimRequestId());
+				claimRequestResponseDto.setClaimId(claimList.getClaimId());
+				claimRequestResponseDto.setHospitalName(claim.get().getHospitalDetails());
+				claimRequestResponseDto.setDiagnosis(claim.get().getDiagnosis());
+				claimRequestResponseDto.setPolicyHolderName(claim.get().getName());
+				claimRequestResponseDto.setTotalClaimAmount(claim.get().getTotalClaimAmount());
+				claimRequestResponseDto.setClaimStatus(claimList.getClaimStatus());
 				BeanUtils.copyProperties(claimList, claimRequestResponseDto);
 				listofRequest.add(claimRequestResponseDto);
 			}

@@ -2,6 +2,8 @@ package com.scrotify.medicalclaim.controller;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ import com.scrotify.medicalclaim.service.ClaimService;
 @CrossOrigin
 public class ApproverController {
 	
+    private static Log logger = LogFactory.getLog(MedicalClaimController.class);
+
 	@Autowired
 	ApproverService approverService;
 
@@ -36,18 +40,21 @@ public class ApproverController {
 	
 	@PostMapping("")
 	public ResponseEntity<ApproverResponseDto> loginApprover(@RequestBody ApproverDto approverDto) throws ApproverNotFound {
+		logger.info("Entering into login approver method");
 		return new ResponseEntity<ApproverResponseDto>(approverService.loginApprover(approverDto), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{approverId}")
 	public ResponseEntity<List<ClaimRequestResponseDto>> getByApproverId(@PathVariable Long approverId) throws ApproverNotFound {
+		logger.info("Entering into get list of request by approverId method");
 		return new ResponseEntity<>(approverService.getByApproverId(approverId), HttpStatus.OK);
 	}
 	
 	
 	
-	@PutMapping("/{approvers/{approverId}/claims/{claimRequestId}")
-	public ApproverClaimResponseDto verifyClaimRequest(@RequestBody @RequestParam Long approverId,@RequestParam String role, @RequestParam Long claimRequestID) {
+	@PutMapping("/{approverId}/{approverRole}/claims/{claimRequestId}")
+	public ApproverClaimResponseDto verifyClaimRequest(@RequestParam Long approverId,@RequestParam String role, @RequestParam Long claimRequestID) {
+		logger.info("Entering into verify claim request method");
 		ApproverClaimResponseDto approverClaimResponseDto=claimService.verifyClaimRequest(approverId, role, claimRequestID);
 		return approverClaimResponseDto;
 	}

@@ -9,8 +9,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClaimRequestResponseDto {
 	
+	private Long claimRequestId;
 	private Long claimId;
 	private String claimStatus;
-	private String reason;
+	private Long policyId;
+	private String policyHolderName;
+	private String hospitalName;
+	private String diagnosis;
+	private Double totalClaimAmount;
 
 }

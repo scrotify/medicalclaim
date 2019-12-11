@@ -50,13 +50,13 @@ public class Claim implements Serializable {
     @Column(name = "discharge_summary")
     private String dischargeSummary;
 
-    @Column(name = "doctor_fee")
+    @Column(name = "doctor_fee", nullable = true)
     private Double doctorFee;
 
     @Column(name = "hospital_details")
     private String hospitalDetails;
 
-    @Column(name = "medicine_fee")
+    @Column(name = "medicine_fee", nullable = true)
     private Double medicineFee;
 
     @Column(name = "more_details")
@@ -65,26 +65,26 @@ public class Claim implements Serializable {
     @Column(name = "more_details_status", columnDefinition = "Boolean default false" )
     private Boolean moreDetailsStatus;
 
-    @Column(name = "nursing_fee")
+    @Column(name = "nursing_fee", nullable = true)
     private Double nursingFee;
 
-    @Column(name = "others_fee")
+    @Column(name = "others_fee", nullable = true)
     private Double othersFee;
 
-    @Column(name = "room_fee")
+    @Column(name = "room_fee", nullable = true)
     private Double roomFee;
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "surgery_fee")
+    @Column(name = "surgery_fee", nullable = true)
     private Double surgeryFee;
 
     //@Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
-    @Column(name = "total_claim_amount")
+    @Column(name = "total_claim_amount", nullable = true)
     private Double totalClaimAmount;
 
-    @Column(name = "xray_fee")
+    @Column(name = "xray_fee", nullable = true)
     private Double xrayFee;
 
     @ManyToOne(fetch = FetchType.LAZY)

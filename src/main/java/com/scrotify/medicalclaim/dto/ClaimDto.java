@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClaimDto {
 
+    private String name;
+    
+    private Double totalClaimAmount;
+
     private LocalDate admissionDate;
 
     private String aliment;
@@ -177,5 +181,33 @@ public class ClaimDto {
     public void setPolicyId(Long policyId) {
         this.policyId = policyId;
     }
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the totalClaimAmount
+	 */
+	public Double getTotalClaimAmount() {
+		return totalClaimAmount;
+	}
+
+	/**
+	 * @param totalClaimAmount the totalClaimAmount to set
+	 */
+	public void setTotalClaimAmount(Double totalClaimAmount) {
+		this.totalClaimAmount = totalClaimAmount;
+	}
 
 }
