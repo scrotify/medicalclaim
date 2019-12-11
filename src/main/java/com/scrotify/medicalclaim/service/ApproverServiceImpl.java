@@ -76,6 +76,7 @@ public class ApproverServiceImpl implements ApproverService {
 				claimRequestResponseDto.setClaimId(claimList.getClaimId());
 				claimRequestResponseDto.setHospitalName(claim.get().getHospitalDetails());
 				claimRequestResponseDto.setDiagnosis(claim.get().getDiagnosis());
+				claimRequestResponseDto.setPolicyId(claim.get().getPolicyId());
 				claimRequestResponseDto.setPolicyHolderName(claim.get().getName());
 				claimRequestResponseDto.setTotalClaimAmount(claim.get().getTotalClaimAmount());
 				claimRequestResponseDto.setClaimStatus(claimList.getClaimStatus());

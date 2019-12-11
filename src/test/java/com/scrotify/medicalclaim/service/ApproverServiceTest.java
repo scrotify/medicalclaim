@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.scrotify.medicalclaim.dto.ApproverResponseDto;
+import com.scrotify.medicalclaim.entity.Approver;
 import com.scrotify.medicalclaim.repository.ApproverRepository;
 import com.scrotify.medicalclaim.repository.ClaimRepository;
 import com.scrotify.medicalclaim.repository.ClaimRequestRepository;
@@ -41,7 +42,7 @@ public class ApproverServiceTest {
 		approverResponseDto.setMessage(MedicalClaimConstants.SUCCESS_MESSAGE);
 		approverResponseDto.setStatusCode(MedicalClaimConstants.SUCCESS_CODE);
 		
-		
+		Approver approver = new Approver();
 	}
 
 
