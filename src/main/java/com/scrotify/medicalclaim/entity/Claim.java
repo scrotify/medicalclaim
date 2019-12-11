@@ -22,11 +22,15 @@ public class Claim implements Serializable {
     @Column(name = "claim_id", unique = true, nullable = false)
     private Long claimId;
 
+
     @Column(name = "admission_date")
     private LocalDate admissionDate;
 
     @Column(name = "aliment")
     private String aliment;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "diagnosis")
     private String diagnosis;
@@ -67,7 +71,7 @@ public class Claim implements Serializable {
     @Column(name = "surgery_fee")
     private double surgeryFee;
 
-    @Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
+    //@Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
     @Column(name = "total_claim_amount")
     private double totalClaimAmount;
 
@@ -77,6 +81,30 @@ public class Claim implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_id")
     private PolicyDetail policyDetail;
+
+    @Transient
+    private Long policyId;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isMoreDetailsStatus() {
+        return moreDetailsStatus;
+    }
+
+    public Long getPolicyId() {
+        return policyId;
+    }
+
+    public void setPolicyId(Long policyId) {
+        this.policyId = policyId;
+    }
 
     public Claim() {
     }
