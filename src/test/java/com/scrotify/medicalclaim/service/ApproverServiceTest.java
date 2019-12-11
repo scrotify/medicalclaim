@@ -13,7 +13,6 @@ public class ApproverServiceTest {
 	@InjectMocks
 	ApproverServiceImpl approverServiceImpl;
 	
-	@Mock
-	ApproverRepository
+
 
 }

@@ -37,7 +37,21 @@ public class ClaimServiceImpl implements ClaimService {
 
 	@Override
 	public Claim getClaimById(Long claimId) {
-		return claimRepository.getOne(claimId);
+		Optional<Claim> claimEntity = claimRepository.findByClaimId(claimId);
+		if(claimEntity.isPresent()) {
+			return claimEntity.get();
+		}
+		return null; 
+	}
+
+
+	@Override
+	public List<Claim> getAllClaims() {
+		List<Claim> claimEntity = claimRepository.findAll();
+		if(!claimEntity.isEmpty()) {
+			return claimEntity;
+		}
+		return null; 
 	}
 
 	@Override

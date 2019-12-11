@@ -51,41 +51,41 @@ public class Claim implements Serializable {
     private String dischargeSummary;
 
     @Column(name = "doctor_fee")
-    private double doctorFee;
+    private Double doctorFee;
 
     @Column(name = "hospital_details")
     private String hospitalDetails;
 
     @Column(name = "medicine_fee")
-    private double medicineFee;
+    private Double medicineFee;
 
     @Column(name = "more_details")
     private String moreDetails;
 
-    @Column(name = "more_details_status")
-    private boolean moreDetailsStatus;
+    @Column(name = "more_details_status", columnDefinition = "Boolean default false" )
+    private Boolean moreDetailsStatus;
 
     @Column(name = "nursing_fee")
-    private double nursingFee;
+    private Double nursingFee;
 
     @Column(name = "others_fee")
-    private double othersFee;
+    private Double othersFee;
 
     @Column(name = "room_fee")
-    private double roomFee;
+    private Double roomFee;
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "surgery_fee")
-    private double surgeryFee;
+    private Double surgeryFee;
 
     //@Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
     @Column(name = "total_claim_amount")
-    private double totalClaimAmount;
+    private Double totalClaimAmount;
 
     @Column(name = "xray_fee")
-    private double xrayFee;
+    private Double xrayFee;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_id")
@@ -103,7 +103,7 @@ public class Claim implements Serializable {
         this.name = name;
     }
 
-    public boolean isMoreDetailsStatus() {
+    public Boolean isMoreDetailsStatus() {
         return moreDetailsStatus;
     }
 
@@ -166,11 +166,11 @@ public class Claim implements Serializable {
         this.dischargeSummary = dischargeSummary;
     }
 
-    public double getDoctorFee() {
+    public Double getDoctorFee() {
         return this.doctorFee;
     }
 
-    public void setDoctorFee(double doctorFee) {
+    public void setDoctorFee(Double doctorFee) {
         this.doctorFee = doctorFee;
     }
 
@@ -182,11 +182,11 @@ public class Claim implements Serializable {
         this.hospitalDetails = hospitalDetails;
     }
 
-    public double getMedicineFee() {
+    public Double getMedicineFee() {
         return this.medicineFee;
     }
 
-    public void setMedicineFee(double medicineFee) {
+    public void setMedicineFee(Double medicineFee) {
         this.medicineFee = medicineFee;
     }
 
@@ -198,35 +198,35 @@ public class Claim implements Serializable {
         this.moreDetails = moreDetails;
     }
 
-    public boolean getMoreDetailsStatus() {
+    public Boolean getMoreDetailsStatus() {
         return this.moreDetailsStatus;
     }
 
-    public void setMoreDetailsStatus(boolean moreDetailsStatus) {
+    public void setMoreDetailsStatus(Boolean moreDetailsStatus) {
         this.moreDetailsStatus = moreDetailsStatus;
     }
 
-    public double getNursingFee() {
+    public Double getNursingFee() {
         return this.nursingFee;
     }
 
-    public void setNursingFee(double nursingFee) {
+    public void setNursingFee(Double nursingFee) {
         this.nursingFee = nursingFee;
     }
 
-    public double getOthersFee() {
+    public Double getOthersFee() {
         return this.othersFee;
     }
 
-    public void setOthersFee(double othersFee) {
+    public void setOthersFee(Double othersFee) {
         this.othersFee = othersFee;
     }
 
-    public double getRoomFee() {
+    public Double getRoomFee() {
         return this.roomFee;
     }
 
-    public void setRoomFee(double roomFee) {
+    public void setRoomFee(Double roomFee) {
         this.roomFee = roomFee;
     }
 
@@ -238,27 +238,27 @@ public class Claim implements Serializable {
         this.status = status;
     }
 
-    public double getSurgeryFee() {
+    public Double getSurgeryFee() {
         return this.surgeryFee;
     }
 
-    public void setSurgeryFee(double surgeryFee) {
+    public void setSurgeryFee(Double surgeryFee) {
         this.surgeryFee = surgeryFee;
     }
 
-    public double getTotalClaimAmount() {
+    public Double getTotalClaimAmount() {
         return this.totalClaimAmount;
     }
 
-    public void setTotalClaimAmount(double totalClaimAmount) {
+    public void setTotalClaimAmount(Double totalClaimAmount) {
         this.totalClaimAmount = totalClaimAmount;
     }
 
-    public double getXrayFee() {
+    public Double getXrayFee() {
         return this.xrayFee;
     }
 
-    public void setXrayFee(double xrayFee) {
+    public void setXrayFee(Double xrayFee) {
         this.xrayFee = xrayFee;
     }
 

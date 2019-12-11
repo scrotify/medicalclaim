@@ -17,7 +17,6 @@ public interface ApproverRepository extends JpaRepository<Approver, Long>{
 
 	Optional<Approver> findByApproverId(Long approverId);
 	
-	Optional<Approver> findByApproverEmail(String email);
 	
 	
 }

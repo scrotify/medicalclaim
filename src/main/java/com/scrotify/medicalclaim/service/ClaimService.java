@@ -15,4 +15,5 @@ public interface ClaimService {
     public PolicyDetail getPolicyById(Long policyId) throws PolicyNotFoundException;
     public Claim getClaimById(Long claimId);
 	public ApproverClaimResponseDto verifyClaimRequest(Long approverId,String role, Long claimRequestID);
+	public List<Claim> getAllClaims();
 }

@@ -1,11 +1,8 @@
 package com.scrotify.medicalclaim.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.time.LocalDate;
+
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class ClaimDto {
@@ -14,6 +11,37 @@ public class ClaimDto {
 
     private String aliment;
 
+    private String diagnosis;
+
+    private LocalDate dischargeDate;
+
+    private String dischargeSummary;
+
+    private Double doctorFee;
+
+    private String hospitalDetails;
+
+    private Double medicineFee;
+
+    private String moreDetails;
+
+    private byte moreDetailsStatus;
+
+    private Double nursingFee;
+
+    private Double othersFee;
+
+    private Double roomFee;
+
+    private String status;
+
+    private Double surgeryFee;
+
+    private Double xrayFee;
+
+    private Long policyId;
+
+    
     public LocalDate getAdmissionDate() {
         return admissionDate;
     }
@@ -54,11 +82,11 @@ public class ClaimDto {
         this.dischargeSummary = dischargeSummary;
     }
 
-    public double getDoctorFee() {
+    public Double getDoctorFee() {
         return doctorFee;
     }
 
-    public void setDoctorFee(double doctorFee) {
+    public void setDoctorFee(Double doctorFee) {
         this.doctorFee = doctorFee;
     }
 
@@ -70,11 +98,11 @@ public class ClaimDto {
         this.hospitalDetails = hospitalDetails;
     }
 
-    public double getMedicineFee() {
+    public Double getMedicineFee() {
         return medicineFee;
     }
 
-    public void setMedicineFee(double medicineFee) {
+    public void setMedicineFee(Double medicineFee) {
         this.medicineFee = medicineFee;
     }
 
@@ -94,27 +122,27 @@ public class ClaimDto {
         this.moreDetailsStatus = moreDetailsStatus;
     }
 
-    public double getNursingFee() {
+    public Double getNursingFee() {
         return nursingFee;
     }
 
-    public void setNursingFee(double nursingFee) {
+    public void setNursingFee(Double nursingFee) {
         this.nursingFee = nursingFee;
     }
 
-    public double getOthersFee() {
+    public Double getOthersFee() {
         return othersFee;
     }
 
-    public void setOthersFee(double othersFee) {
+    public void setOthersFee(Double othersFee) {
         this.othersFee = othersFee;
     }
 
-    public double getRoomFee() {
+    public Double getRoomFee() {
         return roomFee;
     }
 
-    public void setRoomFee(double roomFee) {
+    public void setRoomFee(Double roomFee) {
         this.roomFee = roomFee;
     }
 
@@ -126,19 +154,19 @@ public class ClaimDto {
         this.status = status;
     }
 
-    public double getSurgeryFee() {
+    public Double getSurgeryFee() {
         return surgeryFee;
     }
 
-    public void setSurgeryFee(double surgeryFee) {
+    public void setSurgeryFee(Double surgeryFee) {
         this.surgeryFee = surgeryFee;
     }
 
-    public double getXrayFee() {
+    public Double getXrayFee() {
         return xrayFee;
     }
 
-    public void setXrayFee(double xrayFee) {
+    public void setXrayFee(Double xrayFee) {
         this.xrayFee = xrayFee;
     }
 
@@ -149,35 +177,5 @@ public class ClaimDto {
     public void setPolicyId(Long policyId) {
         this.policyId = policyId;
     }
-
-    private String diagnosis;
-
-    private LocalDate dischargeDate;
-
-    private String dischargeSummary;
-
-    private double doctorFee;
-
-    private String hospitalDetails;
-
-    private double medicineFee;
-
-    private String moreDetails;
-
-    private byte moreDetailsStatus;
-
-    private double nursingFee;
-
-    private double othersFee;
-
-    private double roomFee;
-
-    private String status;
-
-    private double surgeryFee;
-
-    private double xrayFee;
-
-    private Long policyId;
 
 }
