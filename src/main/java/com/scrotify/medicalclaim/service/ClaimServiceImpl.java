@@ -3,17 +3,18 @@ package com.scrotify.medicalclaim.service;
 import com.scrotify.medicalclaim.dto.ApiResponse;
 import com.scrotify.medicalclaim.entity.Claim;
 import com.scrotify.medicalclaim.entity.PolicyDetail;
+import com.scrotify.medicalclaim.exception.PolicyNotFoundException;
 import com.scrotify.medicalclaim.repository.ClaimRepository;
 import com.scrotify.medicalclaim.repository.PolicyDetailRepository;
 import com.scrotify.medicalclaim.util.MedicalClaimConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ClaimServiceImpl implements ClaimService{
-
 
     @Autowired
     private PolicyDetailRepository policyDetailRepository;
@@ -21,19 +22,44 @@ public class ClaimServiceImpl implements ClaimService{
     @Autowired
     private ClaimRepository claimRepository;
 
+
+    @Override
+    public Claim getClaimById(Long claimId) {
+        return claimRepository.getOne(claimId);
+    }
+
     @Override
     public ApiResponse postClaims(Claim claim) {
         ApiResponse response = new ApiResponse();
         Optional<PolicyDetail> policyDetailOptional = policyDetailRepository.findById(claim.getPolicyId());
         if (policyDetailOptional.isPresent()) {
+            claim.setPolicyDetail(policyDetailOptional.get());
+            double totalClaim = claim.getMedicineFee() + claim.getDoctorFee() + claim.getNursingFee() + claim.getOthersFee();
+            totalClaim+= claim.getRoomFee() +claim.getSurgeryFee() + claim.getXrayFee() ;
+            claim.setTotalClaimAmount(totalClaim);
             claim = claimRepository.save(claim);
             response.setStatusCode(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_STATUS_CODE);
-            response.setMessage(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_MSG + claim.getClaimId() + ":" + claim.getTotalClaimAmount());
+            response.setMessage(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_MSG + claim.getClaimId());
         } else {
             response.setStatusCode(MedicalClaimConstants.CLAIM_REGISTER_FAILED_STATUS_CODE);
             response.setMessage(MedicalClaimConstants.CLAIM_REGISTER_FAILED_MSG);
         }
         return response;
+    }
+
+    @Override
+    public List<PolicyDetail> getAllPolicy() {
+        return policyDetailRepository.findAll();
+    }
+
+
+    @Override
+    public PolicyDetail getPolicyById(Long policyId) throws PolicyNotFoundException {
+        if (policyDetailRepository.findById(policyId).isPresent()) {
+            return policyDetailRepository.findById(policyId).get();
+        } else {
+            throw new PolicyNotFoundException(MedicalClaimConstants.POLICY_NOT_FOUND);
+        }
     }
 
 }
