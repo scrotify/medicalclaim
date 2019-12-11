@@ -24,10 +24,6 @@ public class MedicalClaimConstants {
     public static final int CLAIM_REGISTER_VALIDATE_FAILED_STATUS_CODE=404;
 
 	public static final String CLAIM_PENDING_REGISTER_MSG = "Pending";
-	public static final String CLAIM_SUCCESS_REGISTER_MSG = "Successfully registered, Claim ID:";
-	public static final int CLAIM_SUCCESS_REGISTER_STATUS_CODE = 200;
-	public static final int CLAIM_REGISTER_FAILED_STATUS_CODE = 500;
-	public static final String CLAIM_REGISTER_FAILED_MSG = "Failed to register claims, Policy is missing";
 	public static final String POLICY_NOT_FOUND = "Policy not found";
 
 	public final static String LOGIN_FAILURE = "Invalid Credentials";

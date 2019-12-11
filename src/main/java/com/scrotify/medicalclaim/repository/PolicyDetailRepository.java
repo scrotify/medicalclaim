@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.scrotify.medicalclaim.entity.PolicyDetail;
 @Repository
 public interface PolicyDetailRepository extends JpaRepository<PolicyDetail, Long> {
-        Optional<PolicyDetail> findByPolicyId(Long claimId);
+        Optional<PolicyDetail> findByClaimsClaimId(Long claimId);
         Optional<PolicyDetail> findByPolicyId(Long policyId);
 
 }

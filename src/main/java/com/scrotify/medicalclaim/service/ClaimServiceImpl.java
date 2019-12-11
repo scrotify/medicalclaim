@@ -151,7 +151,7 @@ public class ClaimServiceImpl implements ClaimService {
 	public ClaimRequestResponseDto validateUser(Long claimId) throws ClaimIdNotFoundException {
 		ClaimRequestResponseDto claimRequestResponseDto = new ClaimRequestResponseDto();
 		Optional<Claim> claim = claimRepository.findByClaimId(claimId);
-		Optional<PolicyDetail> policyDetail = policyDetailRepository.findByPolicyId(claim.get().getClaimId());
+		Optional<PolicyDetail> policyDetail = policyDetailRepository.findByClaimsClaimId(claim.get().getClaimId());
 		if (policyDetail.isPresent()) {
 			if (!policyDetail.get().getAilments().isEmpty()) {
 				if (policyDetail.get().getAilments().get(0).getAilment().equals(claim.get().getAliment())) {

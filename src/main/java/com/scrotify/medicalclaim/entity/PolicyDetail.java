@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "policy_details")
-@NamedQuery(name = "PolicyDetail.findAll", query = "SELECT p FROM PolicyDetail p")
+//@NamedQuery(name = "PolicyDetail.findAll", query = "SELECT p FROM PolicyDetail p")
 public class PolicyDetail implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
  import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
  
 import org.springframework.scheduling.annotation.Scheduled;
@@ -49,9 +50,10 @@ public class MedicalClaimController {
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
     
-//    @PostMapping("/{claimId}/validate")
-    @Scheduled(fixedRate = 60000)
+    @PostMapping("/{claimId}/validate")
+//    @Scheduled(fixedRate = 60000)
     public ClaimRequestResponseDto validateClaims(@PathVariable Long claimId) throws ClaimIdNotFoundException {
+    //public ClaimRequestResponseDto validateClaims(@PathVariable Long claimId) throws ClaimIdNotFoundException {
     	ClaimRequestResponseDto ClaimRequestResponseDto=claimService.validateUser(claimId);
         return ClaimRequestResponseDto;
      }

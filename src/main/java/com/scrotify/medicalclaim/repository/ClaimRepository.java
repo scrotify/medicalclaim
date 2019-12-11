@@ -1,6 +1,5 @@
 package com.scrotify.medicalclaim.repository;
 
-
 import com.scrotify.medicalclaim.entity.Claim;
 import java.util.Optional;
 
@@ -11,9 +10,6 @@ import com.scrotify.medicalclaim.entity.Claim;
 
 @Repository
 public interface ClaimRepository extends JpaRepository<Claim, Long> {
-Optional<Claim> findByClaimId(Long claimId);
-
-
 	Optional<Claim> findByClaimId(Long claimId);
 
 }
