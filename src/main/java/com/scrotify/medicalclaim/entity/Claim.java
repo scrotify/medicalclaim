@@ -1,10 +1,18 @@
 package com.scrotify.medicalclaim.entity;
 
-import org.hibernate.annotations.Formula;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 /**
@@ -67,7 +75,7 @@ public class Claim implements Serializable {
     @Column(name = "surgery_fee")
     private double surgeryFee;
 
-    @Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
+//    @Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
     @Column(name = "total_claim_amount")
     private double totalClaimAmount;
 

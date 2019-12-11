@@ -24,7 +24,6 @@ public class ClaimRequest {
 	private Long claimRequestId;
 	private Long claimId;
 	private String claimStatus;
-	@Column(name="assigned")
-	private Long approverId;
+    private  String approverRole;
 	private String reason;
 }

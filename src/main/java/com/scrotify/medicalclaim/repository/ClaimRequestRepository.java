@@ -1,15 +1,16 @@
 package com.scrotify.medicalclaim.repository;
 
-import com.scrotify.medicalclaim.entity.Claim;
-
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ClaimRepository extends JpaRepository<Claim, Long> {
+import com.scrotify.medicalclaim.entity.Claim;
+import com.scrotify.medicalclaim.entity.ClaimRequest;
 
+@Repository
+public interface ClaimRequestRepository extends JpaRepository<ClaimRequest, Long> {
+	
 	Optional<Claim> findByClaimId(Long claimId);
 
 }
