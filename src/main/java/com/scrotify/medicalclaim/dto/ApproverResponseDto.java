@@ -6,12 +6,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClaimRequestResponseDto {
-	
+@NoArgsConstructor
+public class ApproverResponseDto {
+
+	private Long approverId;
+	private String approverName;
 	private String message;
 	private Integer statusCode;
-	private Long claimId;
-	private String claimStatus;
-	private String reason;
+	private String approverRole;
 
 }

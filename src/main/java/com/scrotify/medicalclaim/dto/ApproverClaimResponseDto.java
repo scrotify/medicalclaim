@@ -12,5 +12,6 @@ public class ApproverClaimResponseDto {
 private String claimStatus;
 private String reason;
 private String message;
+private String approverRole;
 private Integer statusCode;
 }
