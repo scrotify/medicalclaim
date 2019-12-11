@@ -1,8 +1,10 @@
 package com.scrotify.medicalclaim.entity;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 /**
@@ -18,10 +20,10 @@ public class Claim implements Serializable {
     @SequenceGenerator(name = "CLAIM_CLAIMID_GENERATOR", sequenceName = "SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLAIM_CLAIMID_GENERATOR")
     @Column(name = "claim_id", unique = true, nullable = false)
-    private String claimId;
+    private Long claimId;
 
     @Column(name = "admission_date")
-    private Date admissionDate;
+    private LocalDate admissionDate;
 
     @Column(name = "aliment")
     private String aliment;
@@ -30,7 +32,7 @@ public class Claim implements Serializable {
     private String diagnosis;
 
     @Column(name = "discharge_date")
-    private Date dischargeDate;
+    private LocalDate dischargeDate;
 
     @Column(name = "discharge_summary")
     private String dischargeSummary;
@@ -48,7 +50,7 @@ public class Claim implements Serializable {
     private String moreDetails;
 
     @Column(name = "more_details_status")
-    private byte moreDetailsStatus;
+    private boolean moreDetailsStatus;
 
     @Column(name = "nursing_fee")
     private double nursingFee;
@@ -65,6 +67,7 @@ public class Claim implements Serializable {
     @Column(name = "surgery_fee")
     private double surgeryFee;
 
+    @Formula("surgeryFee + roomFee + othersFee +nursingFee + medicineFee + doctorFee")
     @Column(name = "total_claim_amount")
     private double totalClaimAmount;
 
@@ -78,19 +81,19 @@ public class Claim implements Serializable {
     public Claim() {
     }
 
-    public String getClaimId() {
+    public Long getClaimId() {
         return this.claimId;
     }
 
-    public void setClaimId(String claimId) {
+    public void setClaimId(Long claimId) {
         this.claimId = claimId;
     }
 
-    public Date getAdmissionDate() {
+    public LocalDate getAdmissionDate() {
         return this.admissionDate;
     }
 
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(LocalDate admissionDate) {
         this.admissionDate = admissionDate;
     }
 
@@ -110,11 +113,11 @@ public class Claim implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public Date getDischargeDate() {
+    public LocalDate getDischargeDate() {
         return this.dischargeDate;
     }
 
-    public void setDischargeDate(Date dischargeDate) {
+    public void setDischargeDate(LocalDate dischargeDate) {
         this.dischargeDate = dischargeDate;
     }
 
@@ -158,11 +161,11 @@ public class Claim implements Serializable {
         this.moreDetails = moreDetails;
     }
 
-    public byte getMoreDetailsStatus() {
+    public boolean getMoreDetailsStatus() {
         return this.moreDetailsStatus;
     }
 
-    public void setMoreDetailsStatus(byte moreDetailsStatus) {
+    public void setMoreDetailsStatus(boolean moreDetailsStatus) {
         this.moreDetailsStatus = moreDetailsStatus;
     }
 
