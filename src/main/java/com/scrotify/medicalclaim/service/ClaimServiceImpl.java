@@ -1,28 +1,26 @@
 package com.scrotify.medicalclaim.service;
 
 import java.util.List;
- import java.util.Optional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scrotify.medicalclaim.dto.ApiResponse;
- import com.scrotify.medicalclaim.dto.ClaimRequestResponseDto;
-import com.scrotify.medicalclaim.entity.Claim;
-import com.scrotify.medicalclaim.entity.ClaimRequest;
-import com.scrotify.medicalclaim.entity.PolicyDetail;
-import com.scrotify.medicalclaim.exception.ClaimIdNotFoundException;
- import com.scrotify.medicalclaim.dto.ApproverClaimResponseDto;
+import com.scrotify.medicalclaim.dto.ApproverClaimResponseDto;
+import com.scrotify.medicalclaim.dto.ClaimRequestResponseDto;
 import com.scrotify.medicalclaim.entity.Approver;
 import com.scrotify.medicalclaim.entity.Claim;
 import com.scrotify.medicalclaim.entity.ClaimRequest;
 import com.scrotify.medicalclaim.entity.PolicyDetail;
+import com.scrotify.medicalclaim.entity.PolicyHolder;
+import com.scrotify.medicalclaim.exception.ClaimIdNotFoundException;
 import com.scrotify.medicalclaim.exception.PolicyNotFoundException;
 import com.scrotify.medicalclaim.repository.ApproverRepository;
- 
 import com.scrotify.medicalclaim.repository.ClaimRepository;
 import com.scrotify.medicalclaim.repository.ClaimRequestRepository;
 import com.scrotify.medicalclaim.repository.PolicyDetailRepository;
+import com.scrotify.medicalclaim.repository.PolicyHolderRepository;
 import com.scrotify.medicalclaim.util.MedicalClaimConstants;
 
 @Service
@@ -39,7 +37,8 @@ public class ClaimServiceImpl implements ClaimService {
 
 	@Autowired
 	private ApproverRepository approverRepository;
-
+	@Autowired
+	PolicyHolderRepository policyHolderRepository;
 	@Override
 	public Claim getClaimById(Long claimId) {
 		Optional<Claim> claimEntity = claimRepository.findByClaimId(claimId);
@@ -74,7 +73,7 @@ public class ClaimServiceImpl implements ClaimService {
 			claim.setTotalClaimAmount(totalClaim);
  			claim = claimRepository.save(claim);
 			response.setStatusCode(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_STATUS_CODE);
-			response.setMessage(MedicalClaimConstants.CLAIM_SUCCESS_REGISTER_MSG + claim.getClaimId());
+			response.setMessage(""+claim.getClaimId());
 		} else {
 			response.setStatusCode(MedicalClaimConstants.CLAIM_REGISTER_FAILED_STATUS_CODE);
 			response.setMessage(MedicalClaimConstants.CLAIM_REGISTER_FAILED_MSG);
@@ -101,27 +100,39 @@ public class ClaimServiceImpl implements ClaimService {
 	 *
 	 */
 	@Override
-	public ApproverClaimResponseDto verifyClaimRequest(Long approverId, String role, Long claimRequestID) {
+	public ApproverClaimResponseDto verifyClaimRequest(Long approverId,Long claimRequestID) {
 		ApproverClaimResponseDto approverClaimResponseDto = new ApproverClaimResponseDto();;
 		Optional<Approver> appro = approverRepository.findByApproverId(approverId);
 		if (appro.isPresent()) {
 			Optional<ClaimRequest> claimRequest = claimRequestRepository.findByClaimRequestId(claimRequestID);
 			if (claimRequest.isPresent()) {
-				if (appro.get().getApproverRole().equalsIgnoreCase(role)) {
+				ClaimRequest claimRequest2=claimRequest.get();
+				if (appro.get().getApproverRole().equalsIgnoreCase(claimRequest.get().getApproverRole())) {
 					Optional<Claim> claim = claimRepository.findByClaimId(claimRequest.get().getClaimId());
 					if (claim.isPresent()) {
-						Optional<PolicyDetail> plociyId = policyDetailRepository
-								.findByPolicyId(claim.get().getPolicyId());
+						Optional<PolicyHolder> plociyId = policyHolderRepository.findByPolicyId(claim.get().getPolicyDetail().getPolicyId());
 						if (plociyId.isPresent()) {
-							if (claim.get().getTotalClaimAmount() > plociyId.get().getPolicyLimit()) {
-								ClaimRequest statusUpdate = new ClaimRequest();
-								statusUpdate.setClaimStatus("approved");
+						Optional<PolicyDetail> policyLimit=policyDetailRepository.findByPolicyId(plociyId.get().getPolicyId());
+							if (claim.get().getTotalClaimAmount() <= policyLimit.get().getPolicyLimit()) {
+								/* ClaimRequest statusUpdate = new ClaimRequest(); */
+								//String staus=claimRequest.get().getClaimStatus();
+								/*
+								 * statusUpdate.setClaimStatus(staus);
+								 * claimRequestRepository.save(statusUpdate);
+								 */
+								claimRequest2.setClaimStatus("approved");
+								claimRequestRepository.save(claimRequest2);
+								approverClaimResponseDto.setMessage("approved");
 							} else {
+								
+								claimRequest2.setClaimStatus("rejected");
+								
 								ClaimRequest level2 = new ClaimRequest();
 								level2.setClaimStatus("rejected");
-								level2.setReason("above policy limit");
-								level2.setApproverRole("level2");
-								claimRequestRepository.save(level2);
+//								level2.setReason("above policy limit");
+//								level2.setApproverRole("level2");
+								claimRequestRepository.save(claimRequest2);
+								approverClaimResponseDto.setMessage("rejected");
 							}
 						} else {
 							
@@ -147,6 +158,12 @@ public class ClaimServiceImpl implements ClaimService {
 		return approverClaimResponseDto;
 	}
   
+	private Object setClaimStatus(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@Override
 	public ClaimRequestResponseDto validateUser(Long claimId) throws ClaimIdNotFoundException {
 		ClaimRequestResponseDto claimRequestResponseDto = new ClaimRequestResponseDto();
@@ -164,6 +181,7 @@ public class ClaimServiceImpl implements ClaimService {
 								requestclaim.setClaimStatus(MedicalClaimConstants.CLAIM_STATUS);
 								requestclaim.setReason(MedicalClaimConstants.CLAIM_REASON);
 								requestclaim.setApproverRole(MedicalClaimConstants.CLAIM_APPROVER_ROLE);
+								requestclaim.setApproverRole("level1");
 								claimRequestRepository.save(requestclaim);
 								claimRequestResponseDto.setMessage(MedicalClaimConstants.CLAIM_SUCCESS_VALIDATE_MESSAGE);
 								claimRequestResponseDto.setStatusCode(200);

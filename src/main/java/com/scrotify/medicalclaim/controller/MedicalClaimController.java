@@ -78,6 +78,7 @@ public class MedicalClaimController {
     claimDtos = claimsEntites.stream().map(entity -> {
     ClaimDto claimDto = new  ClaimDto();
     BeanUtils.copyProperties(entity, claimDto);
+    claimDto.setName(entity.getName());
     claimDto.setPolicyId(entity.getPolicyDetail().getPolicyId());
     return claimDto;
       }).collect(Collectors.toList());

@@ -52,10 +52,10 @@ public class ApproverController {
 	
 	
 	
-	@PutMapping("/{approverId}/{approverRole}/claims/{claimRequestId}")
-	public ApproverClaimResponseDto verifyClaimRequest(@RequestParam Long approverId,@RequestParam String role, @RequestParam Long claimRequestID) {
+	@PutMapping("/{approverId}/claims/{claimRequestId}")
+	public ApproverClaimResponseDto verifyClaimRequest(@RequestParam Long approverId, @RequestParam Long claimRequestID) {
 		logger.info("Entering into verify claim request method");
-		ApproverClaimResponseDto approverClaimResponseDto=claimService.verifyClaimRequest(approverId, role, claimRequestID);
+		ApproverClaimResponseDto approverClaimResponseDto=claimService.verifyClaimRequest(approverId,  claimRequestID);
 		return approverClaimResponseDto;
 	}
 }

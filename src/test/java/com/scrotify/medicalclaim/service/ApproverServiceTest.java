@@ -43,6 +43,8 @@ public class ApproverServiceTest {
 		approverResponseDto.setStatusCode(MedicalClaimConstants.SUCCESS_CODE);
 		
 		Approver approver = new Approver();
+		approver.setApproverEmail("xyz@gmail.com");
+		approver.setApproverPassword("abcd");
 	}
 
 
